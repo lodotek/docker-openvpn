@@ -29,6 +29,7 @@ docker run -d -v $OVPN_DATA:/etc/openvpn --cap-add=NET_ADMIN --privileged -p 119
 #
 # Test that easy_rsa generate CRLs with 'next publish' set to 3650 days.
 #
+echo "Testing that easy_rsa generate CRLs with 'next publish' set to 3650 days"
 crl_next_update="$(docker exec $NAME openssl crl -nextupdate -noout -in /etc/openvpn/crl.pem | cut -d'=' -f2 | tr -d 'GMT')"
 crl_next_update="$(date -u -d "$crl_next_update" "+%s")"
 now="$(docker exec $NAME date "+%s")"
